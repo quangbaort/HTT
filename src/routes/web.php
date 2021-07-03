@@ -27,4 +27,8 @@ Route::middleware('Admin')->prefix('admin')->group(function () {
     Route::get('dashboard' , [App\Http\Controllers\Admin\HomeController::class , 'dashboard'])->name('dashboard');
     Route::get('users' , [App\Http\Controllers\Admin\UserController::class , 'index'])->name('users');
     Route::post('add-user' ,[App\Http\Controllers\Admin\UserController::class , 'addUser'])->name('add-user');
+    Route::get('profile' ,[App\Http\Controllers\Admin\UserController::class , 'profile'])->name('profile');
+    Route::post('update-profile' ,[App\Http\Controllers\Admin\UserController::class , 'updateProfile'])->name('updateProfile');
+    Route::post('update-user/{id}' ,[App\Http\Controllers\Admin\UserController::class , 'updateUser'])->name('updateUser');
+
 });

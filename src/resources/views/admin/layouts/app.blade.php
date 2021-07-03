@@ -11,6 +11,13 @@
     <link href="{{asset('assets\css\bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('assets\css\icons.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('assets\css\app.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets\libs\datatables\dataTables.bootstrap4.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets\libs\datatables\responsive.bootstrap4.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets\libs\datatables\buttons.bootstrap4.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets\libs\datatables\select.bootstrap4.css')}}" rel="stylesheet" type="text/css">
+    <style>
+    
+    </style>
     @stack('style')
 {{--    <link rel="stylesheet" href="{{asset('css/htt.css')}}">--}}
 </head>
@@ -30,6 +37,16 @@
 <script src="{{asset('assets\js\vendor.min.js')}}"></script>
 
 <script src="{{asset('assets\js\app.min.js')}}"></script>
+<script src="{{asset('assets\libs\datatables\jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets\libs\datatables\dataTables.bootstrap4.js')}}"></script>
+<script src="{{asset('assets\libs\datatables\dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('assets\libs\datatables\responsive.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets\libs\datatables\dataTables.buttons.min.js')}}"></script>
+
+ <!-- Datatables init -->
+ <script src="{{asset('assets\js\pages\datatables.init.js')}}"></script>
+ <script src="{{asset('js/app.js')}}"></script>
+ @include('vendor.sweetalert.alert')
 @stack('script')
 </body>
 </html>

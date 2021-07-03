@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 @section('title' , 'HTT - Thành viên')
 @push('style')
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <style>
         .hide {
             display: none;
@@ -11,6 +10,16 @@
             width: 200px;
             height: 200px;
         }
+        #myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+tr{
+    cursor: pointer;
+}
+
     </style>
 @endpush
 @section('content')
@@ -25,10 +34,10 @@
         </div>
         <diiv class="row">
             <div class="table-responsive">
-                <table id="example" class="" style="width:100%">
+                <table id="tableUser" class="table dt-responsive nowrap table-hover" style="width:100%">
                     <thead>
                         <tr>
-                            <th>ID thành viêb</th>
+                            <th>ID thành viên</th>
                             <th>Tên đăng nhập</th>
                             <th>Chúc vụ</th>
                             <th>Hành động</th>
@@ -36,16 +45,57 @@
                     </thead>
                     <tbody>
                         @foreach($users as $user)
-                            <tr>
-                                <td>{{$user->id}}</td>
+                            <tr data-toggle="modal" data-target="#openImage{{$user->id}}">
+                                <td >
+                                    {{$user->id}}
+                                    <img  src="{{asset($user->avatar)}}" style="width:50px; height:50px; border-radius:50%" class="img-fluid" alt="{{$user->username}}">
+                                </td>
                                 <td>{{$user->username}}</td>
-                                <td>{{$user->role}}</td>
+                                <td>
+                                    @if($user->role == 1)
+                                        Admin
+                                    @elseif($user->role == 2)
+                                        Kiểm duyệt
+                                    @else
+                                        Thành Viên
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="" class="px-2" title="Xóa"> <i class="mdi mdi-delete text-danger"></i></a>
                                     <a href="" title="Sửa"> <i class="mdi mdi-account-edit text-success"></i></a>
 
                                 </td>
                             </tr>
+                            <div id="openImage{{$user->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
+                                <div class="modal-dialog modal-md">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="full-width-modalLabel">{{$user->username}}</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        </div>
+                                        <form method="post" data-id="{{$user->id}}" class="form{{$user->id}}">
+                                        <div class="modal-body">
+                                            <div class="detail col-12 text-center">
+                                                <img src="{{asset($user->avatar)}}" class="img-fluid" alt="">        
+                                            </div>
+                                            <div class="detail col-12">
+                                                <div class="form-group">
+                                                    <label for="">username</label>
+                                                    <input type="text" class="form-control" value="{{$user->username}}" disabled>
+                                                </div>      
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Đóng</button>
+                                            <button type="button" class="btn btn-danger waves-effect" >Xóa</button>
+                                            <button type="button" class="btn btn-primary waves-effect btn-edit" data-id="{{$user->id}}" >Sửa</button>
+
+
+                                        </div>
+                                        </form>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -63,14 +113,13 @@
                 </div>
                 <div class="modal-body p-4">
                     <div class="row">
-
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Tên tài khoản</label>
                                     <input type="text" autocomplete="false" class="form-control @error('username') @enderror" name="username" id="field-1" placeholder="baonq">
-                                    <span class="help-block"></span>
+                                    <span class="help-block text-danger"></span>
                                     @error('username')
-                                    <span class="help-block">{{$message}}</span>
+                                    <span class="help-block text-danger">{{$message}}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -80,7 +129,7 @@
                                     <input type="password" autocomplete="false" class="form-control @error('password') @enderror" name="password" id="field-2" placeholder="*****">
                                 </div>
                                 @error('password')
-                                <span class="help-block">{{$message}}</span>
+                                <span class="help-block text-danger">{{$message}}</span>
                                 @enderror
                             </div>
                             <div class="col-12">
@@ -119,10 +168,20 @@
             </div>
         </div>
     </div>
-@include('vendor.sweetalert.alert')
+    
 @push('script')
-    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="{{asset('js/app.js')}}"></script>
+    <script>
+        $('.btn-edit').click(function() {
+            const id = $(this).data('id')
+            const form = $('.form'+id)
+            var url = '{{ route("updateUser", ":id") }}';
+            url = url.replace(':id', id);
+            const action = url
+            form.prop('action' , action)
+            $(this).text('lưu lại')
+            $(this).attr('type' , 'submit')
+        })
+    </script>
     <script>
         $('#btn-upload').click(function () {
             $('#field-3').click()
@@ -143,6 +202,7 @@
 
     </script>
     <script>
+
         var users = @json($users);
         let arrUserName = [];
         for(let i = 0; i < users.length; i++){
@@ -160,6 +220,12 @@
                 $(this).next().text('')
             }
         })
+        
     </script>
+    @error('addUser')
+        <script>
+            $('#con-close-modal').modal('show')
+        </script>
+    @enderror
 @endpush
 @endsection

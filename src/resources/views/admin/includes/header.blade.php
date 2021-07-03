@@ -123,9 +123,9 @@
                 </div>
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="{{route('profile')}}" class="dropdown-item notify-item">
                     <i class="fe-user"></i>
-                    <span>My Account</span>
+                    <span>Info của mày</span>
                 </a>
 
                 <!-- item-->
@@ -162,9 +162,9 @@
 
     <!-- LOGO -->
     <div class="logo-box">
-        <a href="index.html" class="logo text-center">
+        <a href="{{ route('dashboard')}}" class="logo text-center">
                         <span class="logo-lg">
-                            <img src="assets\images\logo-light.png" alt="" height="24">
+                            <img src="{{asset('assets\images\logo-light.png')}}" alt="" height="24">
                             <!-- <span class="logo-lg-text-light">Upvex</span> -->
                         </span>
             <span class="logo-sm">

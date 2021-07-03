@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\ProfileRequest;
+use Auth;
 class UserController extends Controller
 {
     public function index()
@@ -40,6 +42,28 @@ class UserController extends Controller
         User::create($data);
         toast('Thêm mới thành viên thành công','success','top-right');
         return back();
+    }
+    public function profile()
+    {
+        $user = User::find(Auth::user()->id);
+        // dd($user);
+        return view('user.profile' , compact('user'));
+    }
+    public function updateProfile(ProfileRequest $request)
+    {
+        $data = $request->all();
+        if ($request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $path = $image->store('public/avatar');
+            $data['avatar'] = Storage::url($path);
+        }
+        User::find(Auth::user()->id)->update($data);
+        toast('Thành công rồi đấy,vừa lòng mày chưa? :D','success','top-right');
+        return back();
+    }
+    public function updateUser(Request $request , $id)
+    {
+        
     }
 
 }
