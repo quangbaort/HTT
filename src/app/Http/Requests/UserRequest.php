@@ -47,11 +47,10 @@ class UserRequest extends FormRequest
     {
         if($validator->fails()){
             toast('Thêm thành viên không thành công','error','top-right');
+            $validator->after(function ($validator) {
+                $validator->errors()->add('addUser', 'Something is wrong with this field!');
+            });
         }
-        $validator->after(function ($validator) {
         
-            $validator->errors()->add('addUser', 'Something is wrong with this field!');
-        
-    });
     }
 }

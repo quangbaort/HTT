@@ -34,7 +34,7 @@ class UserController extends Controller
     }
     public function addUser(UserRequest $request)
     {
-
+        // dd($request->all());
         $data = $request->all();
         $data['password'] = Hash::make($data['password']);
         if ($request->hasFile('avatar')) {
