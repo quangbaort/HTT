@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileRequest extends FormRequest
+class AvatarRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,14 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-           
-            'username' => "required|min:6|max:20|unique:users",
+             'avatar' => 'mimes:jpeg,jpg,png,gif|max:10000',
         ];
     }
     public function messages()
     {
         return [
-            'username.required' => 'Tên tài khoản không được bỏ trống',
-            'username.unique' => 'Tên tài khoản đã tồn tại',
-            'username.min' => 'Tên tài khoản phải lớn hơn 6 kí tự',
-            'username.max' => 'Tên tài quá dài, lưu ý: nhỏ hơn 20 kí tự',
+            'avatar.mimes' => 'Xin lỗi bạn đã tải avatar lên không phải là ảnh',
+            'avatar.max' => 'Xin lỗi ảnh avatar của bạn quá lớn'
         ];
     }
     protected $stopOnFirstFailure = true;

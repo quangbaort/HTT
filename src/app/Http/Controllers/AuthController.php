@@ -20,7 +20,7 @@ class AuthController extends Controller
             'role' => 1
         ];
         if(Auth::attempt($credentials)):
-            toast('đăng nhập thành công','success','top-right');
+            toast('Đăng nhập thành công','success','top-right');
             return redirect(route('dashboard'));
         else:
             toast('Sai tên tài khoản hoặc mật khẩu','error','top-right');

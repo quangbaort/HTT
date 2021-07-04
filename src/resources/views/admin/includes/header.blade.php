@@ -109,7 +109,7 @@
 
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="{{asset('assets\images\users\user-1.jpg')}}" alt="user-image" class="rounded-circle">
+                <img src="{{is_null($user->avatar) ? asset('assets\images\users\user-1.jpg') : asset($user->avatar)}}" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ml-1">
                                 {{Auth::user()->username}}<i class="mdi mdi-chevron-down"></i>
                             </span>
@@ -143,7 +143,7 @@
                 <div class="dropdown-divider"></div>
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="{{route('logout')}}" class="dropdown-item notify-item">
                     <i class="fe-log-out"></i>
                     <span>Logout</span>
                 </a>

@@ -73,7 +73,7 @@ tr{
                                             <h4 class="modal-title" id="full-width-modalLabel">{{$user->username}}</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                         </div>
-                                        <form method="post" data-id="{{$user->id}}" class="form{{$user->id}}">
+                                        <form method="post" action="{{route('updateUser' , $user->id)}}" data-id="{{$user->id}}" class="form{{$user->id}}">
                                         <div class="modal-body">
                                             <div class="detail col-12 text-center">
                                                 <img src="{{asset($user->avatar)}}" class="img-fluid" alt="">        
@@ -89,8 +89,6 @@ tr{
                                             <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Đóng</button>
                                             <button type="button" class="btn btn-danger waves-effect" >Xóa</button>
                                             <button type="button" class="btn btn-primary waves-effect btn-edit" data-id="{{$user->id}}" >Sửa</button>
-
-
                                         </div>
                                         </form>
                                     </div><!-- /.modal-content -->
@@ -170,7 +168,7 @@ tr{
     </div>
     
 @push('script')
-    <script>
+    <!-- <script>
         $('.btn-edit').click(function() {
             const id = $(this).data('id')
             const form = $('.form'+id)
@@ -181,7 +179,7 @@ tr{
             $(this).text('lưu lại')
             $(this).attr('type' , 'submit')
         })
-    </script>
+    </script> -->
     <script>
         $('#btn-upload').click(function () {
             $('#field-3').click()
@@ -229,3 +227,4 @@ tr{
     @enderror
 @endpush
 @endsection
+
