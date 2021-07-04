@@ -12,6 +12,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\AvatarRequest;
 use App\Http\Requests\PasswordRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Auth;
 
 class UserController extends Controller
@@ -58,9 +59,20 @@ class UserController extends Controller
         toast('Thành công rồi đấy, vừa lòng mày chưa? :D','success','top-right');
         return back();
     }
-    public function updateUser(Request $request , $id)
+    public function updateUser(UpdateUserRequest $request , $id)
     {
-        
+        dd($request->all());
+        $data = $request->all();
+        User::find($id)->update($data);
+        toast('Thành công rồi đấy, vừa lòng mày chưa? :D','success','top-right');
+        return back();
+        // if($request->password)
+
+    }
+    public function viewUser(Request $request , $id)
+    {
+        $user = User::find($id);
+        return view('admin.user.view' , compact('user'));
     }
     public function changePassword (PasswordRequest $request)
     {
@@ -84,6 +96,33 @@ class UserController extends Controller
             $data['avatar'] = Storage::url($path);
         }
         User::find(Auth::user()->id)->update($data);
+        toast('Thành công rồi đấy,vừa lòng mày chưa? :D','success','top-right');
+        return back();
+    }
+    public function UpdateUserAvatar(AvatarRequest $request , $id)
+    {
+        $data = $request->all();
+        if ($request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $path = $image->store('public/avatar');
+            $data['avatar'] = Storage::url($path);
+        }
+        User::find($id)->update($data);
+        toast('Thành công rồi đấy,vừa lòng mày chưa? :D','success','top-right');
+        return back();
+    }
+    public function resetPassword(Request $request , $id)
+    {
+        $password = Hash::make('HTTVIP');
+        User::find($id)->update([
+            'password' => $password
+        ]);
+        toast('Thành công rồi đấy,vừa lòng mày chưa? :D','success','top-right');
+        return back();
+    }
+    public function deleteUser(Request $request ,$id)
+    {
+        User::find($id)->delete();
         toast('Thành công rồi đấy,vừa lòng mày chưa? :D','success','top-right');
         return back();
     }

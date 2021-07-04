@@ -40,7 +40,6 @@ tr{
                             <th>ID thành viên</th>
                             <th>Tên đăng nhập</th>
                             <th>Chúc vụ</th>
-                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,11 +59,7 @@ tr{
                                         Thành Viên
                                     @endif
                                 </td>
-                                <td>
-                                    <a href="" class="px-2" title="Xóa"> <i class="mdi mdi-delete text-danger"></i></a>
-                                    <a href="" title="Sửa"> <i class="mdi mdi-account-edit text-success"></i></a>
-
-                                </td>
+                                
                             </tr>
                             <div id="openImage{{$user->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
                                 <div class="modal-dialog modal-md">
@@ -73,10 +68,9 @@ tr{
                                             <h4 class="modal-title" id="full-width-modalLabel">{{$user->username}}</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                         </div>
-                                        <form method="post" action="{{route('updateUser' , $user->id)}}" data-id="{{$user->id}}" class="form{{$user->id}}">
                                         <div class="modal-body">
                                             <div class="detail col-12 text-center">
-                                                <img src="{{asset($user->avatar)}}" class="img-fluid" alt="">        
+                                                <img id="imagePreview" src="{{asset($user->avatar)}}" class="img-fluid" alt="">        
                                             </div>
                                             <div class="detail col-12">
                                                 <div class="form-group">
@@ -87,8 +81,8 @@ tr{
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Đóng</button>
-                                            <button type="button" class="btn btn-danger waves-effect" >Xóa</button>
-                                            <button type="button" class="btn btn-primary waves-effect btn-edit" data-id="{{$user->id}}" >Sửa</button>
+                                            <a  href="{{route('deleteUser' , $user->id)}}"  class="btn btn-danger waves-effect" >Xóa</a>
+                                            <a href="{{route('view-user' , $user->id)}}" class="btn btn-primary waves-effect btn-edit" data-id="{{$user->id}}" >Sửa</a>
                                         </div>
                                         </form>
                                     </div><!-- /.modal-content -->
@@ -168,25 +162,13 @@ tr{
     </div>
     
 @push('script')
-    <!-- <script>
-        $('.btn-edit').click(function() {
-            const id = $(this).data('id')
-            const form = $('.form'+id)
-            var url = '{{ route("updateUser", ":id") }}';
-            url = url.replace(':id', id);
-            const action = url
-            form.prop('action' , action)
-            $(this).text('lưu lại')
-            $(this).attr('type' , 'submit')
-        })
-    </script> -->
     <script>
         $('#btn-upload').click(function () {
             $('#field-3').click()
         })
         $('#field-3').change(function() {
             readImgUrlAndPreview(this);
-
+            $('form#uploadAvatar').submit();
             function readImgUrlAndPreview(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
