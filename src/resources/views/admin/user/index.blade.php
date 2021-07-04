@@ -74,8 +74,16 @@ tr{
                                             </div>
                                             <div class="detail col-12">
                                                 <div class="form-group">
-                                                    <label for="">username</label>
+                                                    <label for="">Tên đăng nhập</label>
                                                     <input type="text" class="form-control" value="{{$user->username}}" disabled>
+                                                </div>      
+                                            </div>
+                                            <div class="detail col-12">
+                                                <div class="form-group">
+                                                    <label for="">Chức vụ</label>
+                                                    <input type="text" class="form-control" value="
+                                                    @if($user->role == 1) Admin @elseif($user->id == 2) Kiểm duyệt viên @else Thành viên @endif
+                                                    " disabled>
                                                 </div>      
                                             </div>
                                         </div>
