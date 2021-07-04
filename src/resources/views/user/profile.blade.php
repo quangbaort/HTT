@@ -83,7 +83,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="password_new">Mật khẩu cũ:</label>
+                                <label for="password_new">Mật khẩu mới:</label>
                                 <input type="password" name="password_new" value="{{old('password_new')}}" class="form-control"/>
                                 @error('password_new')
                                     <span class="help-block text-danger">{{$message}}</span>

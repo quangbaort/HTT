@@ -86,6 +86,8 @@ class UserController extends Controller
             toast('Thành công rồi đấy, vừa lòng mày chưa? :D','success','top-right');
             return back();
         }
+        toast('Mật khẩu cũ không đúng, mày đã nhập đúng chưa? :O','error','top-right');
+        return back();
     }
     public function uploadAvatar(AvatarRequest $request)
     {
