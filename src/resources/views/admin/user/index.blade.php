@@ -81,9 +81,7 @@ tr{
                                             <div class="detail col-12">
                                                 <div class="form-group">
                                                     <label for="">Chức vụ</label>
-                                                    <input type="text" class="form-control" value="
-                                                    @if($user->role == 1) Admin @elseif($user->id == 2) Kiểm duyệt viên @else Thành viên @endif
-                                                    " disabled>
+                                                    <input type="text" class="form-control" value="{{App\Helpers\UIHelper::role($user->role) }}" disabled>
                                                 </div>      
                                             </div>
                                         </div>
