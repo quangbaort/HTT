@@ -14,7 +14,7 @@
     <div class="container">
         <h1>Chi tiết</h1>
         <div class="row">
-            <div class="col-6 mx-auto">
+            <div class="col-md-6 mx-auto">
                 <div class="card">
                     <div class="card-header">
                         <p class="card-title">{{$user->username}}</p>
