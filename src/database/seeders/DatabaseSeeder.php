@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'username' => 'adminSG',
             'name' => 'Tiger',
-            'password' => Hash::make('HTTVIP'),
+            'password' => Hash::make('SGVIPS2'),
             'name_hago' => 'SG tiger',
             'id_hago' => '123456789',
             'role' => 1,

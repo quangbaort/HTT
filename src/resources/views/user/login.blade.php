@@ -199,7 +199,7 @@
                             <label class="mb-1">
                                 <h6 class="mb-0 text-sm">Tên tài khoản</h6>
                             </label>
-                            <input class="mb-4" class="@error('username') is-valid @enderror" id="username" type="text" name="username" value="{{old('username') ? old('username') : 'adminHTT'}}" placeholder="Tên tài khoản"/>
+                            <input class="mb-4" class="@error('username') is-valid @enderror" id="username" type="text" name="username" value="{{old('username') ? old('username') : 'adminSG'}}" placeholder="Tên tài khoản"/>
                             @error('username')
                             <span class="help-block">{{$message}}</span>
                             @enderror
