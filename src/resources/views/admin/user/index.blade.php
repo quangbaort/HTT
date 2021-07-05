@@ -39,7 +39,7 @@ tr{
                     <thead>
                         <tr>
                             <th>ID thành viên</th>
-                            <th>Tên đăng nhập</th>
+                            <th>Họ và tên</th>
                             <th>Chúc vụ</th>
                         </tr>
                     </thead>
@@ -50,7 +50,7 @@ tr{
                                     {{$user->id}}
                                     <img  src="{{asset($user->avatar)}}" style="width:50px; height:50px; border-radius:50%" class="img-fluid" alt="{{$user->username}}">
                                 </td>
-                                <td>{{$user->username}}</td>
+                                <td>{{$user->name}}</td>
                                 <td>
                                     {{App\Helpers\UIHelper::role($user->role) }}
                                 </td>
