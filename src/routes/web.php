@@ -26,7 +26,7 @@ Route::middleware('userLogined')->group(function () {
 });
 Route::middleware('Admin')->prefix('admin')->group(function () {
     # router admin user
-    Route::get('/dashboard' , [App\Http\Controllers\Admin\HomeController::class , 'dashboard'])->name('dashboard');
+    Route::get('/dashboard' , [App\Http\Controllers\Admin\UserController::class , 'index'])->name('dashboard');
     Route::get('/users' , [App\Http\Controllers\Admin\UserController::class , 'index'])->name('users');
     Route::post('/add-user' ,[App\Http\Controllers\Admin\UserController::class , 'addUser'])->name('add-user');
     Route::get('/view-user/{id}' ,[App\Http\Controllers\Admin\UserController::class , 'viewUser'])->name('view-user');

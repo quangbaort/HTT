@@ -150,7 +150,7 @@ tr{
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="field-1" class="control-label">Họ và tên:</label>
-                                    <input type="text" autocomplete="false" class="form-control @error('name') @enderror" name="name" id="field-1" placeholder="baonq">
+                                    <input type="text" autocomplete="false" class="form-control @error('name') @enderror" name="name" id="field-1" placeholder="tiger">
                                     <span class="help-block text-danger"></span>
                                     @error('name')
                                     <span class="help-block text-danger">{{$message}}</span>
