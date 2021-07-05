@@ -178,7 +178,7 @@ tr{
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="field-2" class="control-label">Cấp vip hiện tại (lưu ý : cấp vip khi vô gia tộc):</label>
-                                    <input type="number" autocomplete="false" class="form-control @error('vip') @enderror" name="vip" id="field-2" placeholder="69156435">
+                                    <input type="number" autocomplete="false" class="form-control @error('vip') @enderror" name="vip" id="field-2" placeholder="1">
                                 </div>
                                 @error('id_hago')
                                 <span class="help-block text-danger">{{$message}}</span>
