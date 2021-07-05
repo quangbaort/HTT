@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         // dd($request->all());
         $data = $request->all();
-        $data['password'] = Hash::make($data['password']);
+        $data['password'] = Hash::make(\App\Helpers\Helper::randomString());
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $path = $image->store('public/avatar');
@@ -61,7 +61,7 @@ class UserController extends Controller
     }
     public function updateUser(UpdateUserRequest $request , $id)
     {
-        dd($request->all());
+        // dd($request->all());
         $data = $request->all();
         User::find($id)->update($data);
         toast('Thành công rồi đấy, vừa lòng mày chưa? :D','success','top-right');

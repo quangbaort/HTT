@@ -1,11 +1,11 @@
 @extends('admin.layouts.app')
-@section('title' , 'HTT - Thành viên')
+@section('title' , 'SG - Hago - Thành viên')
 @push('style')
     <style>
         .hide {
             display: none;
         }
-        #imagePreview{
+        #imagePreview,#imagePreview1{
             border-radius: 50%;
             width: 200px;
             height: 200px;
@@ -27,6 +27,7 @@ tr{
         <div class="row">
             <div class="col-6">
                 <h1>Thành viên</h1>
+                <h3>Tổng số {{$users->count()}}</h3>
             </div>
             <div class="col-6 my-2 justify-content-end text-right">
                 <button class="btn btn-primary" data-toggle="modal" data-target="#con-close-modal"> <i class="mdi mdi-account-plus"></i> Thêm mới</button>
@@ -51,39 +52,74 @@ tr{
                                 </td>
                                 <td>{{$user->username}}</td>
                                 <td>
-                                    @if($user->role == 1)
-                                        Admin
-                                    @elseif($user->role == 2)
-                                        Kiểm duyệt
-                                    @else
-                                        Thành Viên
-                                    @endif
+                                    {{App\Helpers\UIHelper::role($user->role) }}
                                 </td>
                                 
                             </tr>
                             <div id="openImage{{$user->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="full-width-modalLabel" aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog modal-md">
+                                <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title" id="full-width-modalLabel">{{$user->username}}</h4>
+                                            <h4 class="modal-title" id="full-width-modalLabel">{{$user->name}}</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="detail col-12 text-center">
-                                                <img id="imagePreview" src="{{asset($user->avatar)}}" class="img-fluid" alt="">        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="detail col-12 text-center">
+                                                    <img id="imagePreview" src="{{asset($user->avatar)}}" class="img-fluid" alt="">        
+                                                </div>
+                                                <div class="detail col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Họ và tên:</label>
+                                                        <input type="text" class="form-control" value="{{$user->name}}" disabled>
+                                                    </div>      
+                                                </div>
+                                                <div class="detail col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Tên Hago:</label>
+                                                        <input type="text" class="form-control" value="{{$user->name_hago}}" disabled>
+                                                    </div>      
+                                                </div>
                                             </div>
-                                            <div class="detail col-12">
-                                                <div class="form-group">
-                                                    <label for="">Tên đăng nhập</label>
-                                                    <input type="text" class="form-control" value="{{$user->username}}" disabled>
-                                                </div>      
+                                            <div class="col-md-6">
+                                                <div class="detail col-12">
+                                                    <div class="form-group">
+                                                        <label for="">ID Hago:</label>
+                                                        <input type="text" class="form-control" value="{{$user->id_hago}}" disabled>
+                                                    </div>      
+                                                </div>
+                                                
+                                                <div class="detail col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Cấp vip(lưu ý : cấp vip khi tham gia gia tộc):</label>
+                                                        <input type="text" class="form-control" value="{{$user->vip}}" disabled>
+                                                    </div>      
+                                                </div>
+                                                <div class="detail col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Chức vụ</label>
+                                                        <input type="text" class="form-control" value="{{App\Helpers\UIHelper::role($user->role) }}" disabled>
+                                                    </div>      
+                                                </div>
+                                                <div class="deatail col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Tham gia ngày</label>
+                                                        <input disabled type="text" class="form-control" value="{{ date('F j , Y, g:i a' , strtotime($user->created_at))}}">
+                                                    </div>
+                                                </div>
+                                                <div class="deatail col-12">
+                                                    <div class="form-group">
+                                                        <label for="">Chỉnh sửa ngày</label>
+                                                        <input disabled type="text" class="form-control" value="{{ date('F j , Y, g:i a' , strtotime($user->updated_at))}}">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="detail col-12">
-                                                <div class="form-group">
-                                                    <label for="">Chức vụ</label>
-                                                    <input type="text" class="form-control" value="{{App\Helpers\UIHelper::role($user->role) }}" disabled>
-                                                </div>      
-                                            </div>
+                                            
+                                        </div>
+                                            
+                                            
+                                            
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Đóng</button>
@@ -113,24 +149,42 @@ tr{
                     <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="field-1" class="control-label">Tên tài khoản</label>
-                                    <input type="text" autocomplete="false" class="form-control @error('username') @enderror" name="username" id="field-1" placeholder="baonq">
+                                    <label for="field-1" class="control-label">Họ và tên:</label>
+                                    <input type="text" autocomplete="false" class="form-control @error('name') @enderror" name="name" id="field-1" placeholder="baonq">
                                     <span class="help-block text-danger"></span>
-                                    @error('username')
+                                    @error('name')
                                     <span class="help-block text-danger">{{$message}}</span>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="field-2" class="control-label">Mật khẩu</label>
-                                    <input type="password" autocomplete="false" class="form-control @error('password') @enderror" name="password" id="field-2" placeholder="*****">
+                                    <label for="field-2" class="control-label">Tên trong Hago(lưu ý: tên đã có ký tự gia tộc):</label>
+                                    <input type="text" autocomplete="false" class="form-control @error('username') @enderror" name="name_hago" id="field-2" placeholder="SG Tiger">
                                 </div>
-                                @error('password')
+                                @error('name_hago')
                                 <span class="help-block text-danger">{{$message}}</span>
                                 @enderror
                             </div>
                             <div class="col-12">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">ID Hago:</label>
+                                    <input type="number" autocomplete="false" class="form-control @error('id_hago') @enderror" name="id_hago" id="field-2" placeholder="69156435">
+                                </div>
+                                @error('id_hago')
+                                <span class="help-block text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Cấp vip hiện tại (lưu ý : cấp vip khi vô gia tộc):</label>
+                                    <input type="number" autocomplete="false" class="form-control @error('vip') @enderror" name="vip" id="field-2" placeholder="69156435">
+                                </div>
+                                @error('id_hago')
+                                <span class="help-block text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <!-- <div class="col-12">
                                 <div class="form-group">
                                     <label for="" class="control-label">Chức vụ</label>
                                     <select name="role"  class="form-control">
@@ -139,8 +193,7 @@ tr{
                                         <option value="3">Thành viên</option>
                                     </select>
                                 </div>
-
-                            </div>
+                            </div> -->
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="field-3">
@@ -151,10 +204,9 @@ tr{
                             </div>
                             <div class="col-12">
                                 <div class="img_preview_wrap text-center">
-                                    <img src="" id="imagePreview" alt="Preview Image"  class="hide img-fluid" />
+                                    <img src="" id="imagePreview1" alt="Preview Image"  class="hide img-fluid" />
                                 </div>
                             </div>
-
                     </div>
 
                 </div>
@@ -174,12 +226,12 @@ tr{
         })
         $('#field-3').change(function() {
             readImgUrlAndPreview(this);
-            $('form#uploadAvatar').submit();
+            // $('form#uploadAvatar').submit();
             function readImgUrlAndPreview(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function(e) {
-                        $('#imagePreview').removeClass('hide').attr('src', e.target.result);
+                        $('#imagePreview1').removeClass('hide').attr('src', e.target.result);
                     }
                 };
                 reader.readAsDataURL(input.files[0]);

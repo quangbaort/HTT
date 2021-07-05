@@ -12,6 +12,9 @@ class UIHelper
             case 2 :
                 $text = 'Kiểm duyệt viên';
                 break;
+            case 3 :
+                $text = 'Thành viên';
+                break;
             default:
                 $text = 'Thành viên';
                 break;

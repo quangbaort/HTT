@@ -24,16 +24,31 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => "required|min:6|max:20|unique:users",
+            'avatar' => 'mimes:jpeg,jpg,png,gif|max:10000',
+            'name' => "required|min:6|max:50",
+            'name_hago' => 'unique:users|required',
+            'id_hago' => 'required',
+            'vip' => 'required',
         ];
     }
     public function messages()
     {
         return [
-            'username.required' => 'Tên tài khoản không được bỏ trống',
-            'username.unique' => 'Tên tài khoản đã tồn tại',
-            'username.min' => 'Tên tài khoản phải lớn hơn 6 kí tự',
-            'username.max' => 'Tên tài quá dài, lưu ý: nhỏ hơn 20 kí tự',
+            'name.required' => 'Họ và tên không được bỏ trống',
+            'name.min' => 'Họ và tên phải trên 6 kí tự',
+            'name.max' => 'Họ và tên quá dài',
+            'name_hago.required' => 'Tên Hago không được bỏ trống',
+            'name_hago.unique' => 'Tên hago đã tồn tại',
+            'id_hago.required' => 'ID hago không được bỏ trống',
+            'vip.required' => 'Cấp vip không được bỏ trống', 
+            // 'username.required' => 'Tên tài khoản không được bỏ trống',
+            // 'password.required' => 'Mật khẩu không được bỏ trống',
+            // 'username.unique' => 'Tên tài khoản đã tồn tại',
+            // 'username.min' => 'Tên tài khoản phải lớn hơn 6 kí tự',
+            // 'username.max' => 'Tên tài quá dài, lưu ý: nhỏ hơn 20 kí tự',
+            // 'password.min' => 'Mật khẩu phải lớn hơn 6 kí tự',
+            'avatar.mimes' => 'Xin lỗi bạn đã tải avatar lên không phải là ảnh',
+            'avatar.max' => 'Xin lỗi ảnh avatar của bạn quá lớn'
         ];
     }
     protected $stopOnFirstFailure = true;

@@ -17,8 +17,13 @@ class DatabaseSeeder extends Seeder
     {
         User::create([
             'username' => 'adminHTT',
+            'name' => 'Tiger',
             'password' => Hash::make('HTTVIP'),
-            'role' => 1
+            'name_hago' => 'SG tiger',
+            'id_hago' => '123456789',
+            'role' => 1,
+            'vip' => 4,
+            'id_hago'=> 69,
         ]);
         // \App\Models\User::factory(10)->create();
     }
